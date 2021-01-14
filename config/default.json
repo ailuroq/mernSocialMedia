@@ -1,7 +1,5 @@
 {
   "port": 5000,
-  "jwtSecret":  "superPuperSecretKey",
-  "mongoUri": "mongodb+srv://yaroslav:Kutuzov@cluster0.wasvj.mongodb.net/mernSM-db?retryWrites=true&w=majority",
-  "baseUrl": "http://localhost:5000"
-
+  "secret": "secret-key",
+  "mongoUri": "mongodb+srv://yaroslav:Kutuzov@cluster0.wasvj.mongodb.net/mernSM-db?retryWrites=true&w=majority"
 }
