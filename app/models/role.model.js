@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const {model, Schema} = require("mongoose");
 
-const Role = mongoose.model(
+const Role = model(
   "Role",
-  new mongoose.Schema({
+  new Schema({
     name: String
   })
 );
