@@ -23,6 +23,6 @@ exports.userProfile = async (req, res) => {
       })
       res.json(user)
   } catch (e) {
-      res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+      res.status(500).json({ message: 'Something gone wrong, try again' })
   }
 }
