@@ -1,39 +1,39 @@
-const db = require("./../models");
-const Role = db.role;
+const db = require('./../models')
+const Role = db.role
 const initial = () => {
     Role.estimatedDocumentCount((err, count) => {
         if (!err && count === 0) {
             new Role({
-                name: "user"
-            }).save(err => {
+                name: 'user'
+            }).save((err) => {
                 if (err) {
-                    console.log("error", err);
+                    console.log('error', err)
                 }
 
-                console.log("added 'user' to roles collection");
-            });
+                console.log('added \'user\' to roles collection')
+            })
 
             new Role({
-                name: "moderator"
-            }).save(err => {
+                name: 'moderator'
+            }).save((err) => {
                 if (err) {
-                    console.log("error", err);
+                    console.log('error', err)
                 }
 
-                console.log("added 'moderator' to roles collection");
-            });
+                console.log('added \'moderator\' to roles collection')
+            })
 
             new Role({
-                name: "admin"
-            }).save(err => {
+                name: 'admin'
+            }).save((err) => {
                 if (err) {
-                    console.log("error", err);
+                    console.log('error', err)
                 }
 
-                console.log("added 'admin' to roles collection");
-            });
+                console.log('added \'admin\' to roles collection')
+            })
         }
-    });
+    })
 }
 
 module.exports = initial
