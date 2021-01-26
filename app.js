@@ -1,25 +1,25 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const config = require('config')
-const app = express();
+const app = express()
+const http = require('http').createServer(app)
 
+const corsOptions = {
+    origin: 'http://localhost:8081'
+}
 
-var corsOptions = {
-    origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
+app.use(cors(corsOptions))
 
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 if (!module.parent) {
-    const db = require("./app/models");
+    const db = require('./app/models')
     const initial = require('./app/database/initialRoles')
     db.mongoose
         .connect(config.get('mongoUri'), {
@@ -27,29 +27,25 @@ if (!module.parent) {
             useUnifiedTopology: true
         })
         .then(() => {
-            console.log("Successfully connect to MongoDB.");
-            initial();
+            console.log('Successfully connect to MongoDB.')
+            initial()
         })
         .catch(err => {
-            console.error("Connection error", err);
-            process.exit();
-        });
+            console.error('Connection error', err)
+            process.exit()
+        })
 }
 
-// simple route
-app.get("/", (req, res) => {
-    res.json({message: "Welcome to application."});
-});
 
 // routes
-require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
-require("./app/routes/post.routes")(app);
+require('./app/routes/auth.routes')(app)
+require('./app/routes/user.routes')(app)
+require('./app/routes/post.routes')(app)
 
 // set port, listen for requests
 PORT = 8080
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
-});
+http.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`)
+})
 
 module.exports = app
