@@ -4,23 +4,40 @@ const User = new Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    avatar: { data: Buffer },
+    city: { type: String },
+    avatar: {
+        type: Schema.Types.ObjectId,
+        ref: 'Image'
+    },
+    lastOnline: { type: Schema.Types.Date },
+    friends: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    chats: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Chat'
+        }
+    ],
     photos: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Photo'
-        }
-    ],
-    roles: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Role'
+            ref: 'Image'
         }
     ],
     posts: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Post'
+        }
+    ],
+    roles: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Role'
         }
     ]
 })

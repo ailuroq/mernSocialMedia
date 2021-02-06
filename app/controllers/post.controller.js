@@ -19,3 +19,5 @@ exports.createPost = async (req, res) => {
     res.send(user)
     console.log(await User.findById(req.userId).populate('posts'))
 }
+
+

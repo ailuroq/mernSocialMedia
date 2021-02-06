@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const config = require('config')
+const path = require('path')
 const app = express()
 const http = require('http').createServer(app)
 
@@ -17,6 +18,8 @@ app.use(bodyParser.json())
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
+//static
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
 if (!module.parent) {
     const db = require('./app/models')
