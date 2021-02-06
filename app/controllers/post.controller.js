@@ -12,12 +12,13 @@ exports.createPost = async (req, res) => {
             res.status(500).send({ message: err })
         }
     })
-    const user = await User.findByIdAndUpdate(
+    return User.findByIdAndUpdate(
         req.userId,
         { $push: { posts: post._id } },
         { new: true, useFindAndModify: false }
-    ).select('posts').populate('posts')
-    res.send(user)
+    ).select('posts').populate('posts').exec((err, doc) => {
+        return res.send(doc)
+    })
 }
 
 
