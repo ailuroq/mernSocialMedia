@@ -11,4 +11,5 @@ module.exports = (app) => {
     })
 
     app.post('/api/:username/', [authJwt.verifyToken], controller.createPost)
+    app.post('/api/deletePost/:postId', [authJwt.verifyToken], controller.deletePost)
 }

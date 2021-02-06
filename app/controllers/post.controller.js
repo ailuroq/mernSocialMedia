@@ -1,4 +1,5 @@
 const db = require('../models')
+const mongoose = require('mongoose')
 const Post = db.post
 const User = db.user
 
@@ -15,9 +16,15 @@ exports.createPost = async (req, res) => {
         req.userId,
         { $push: { posts: post._id } },
         { new: true, useFindAndModify: false }
-    )
+    ).select('posts').populate('posts')
     res.send(user)
-    console.log(await User.findById(req.userId).populate('posts'))
 }
 
+
+exports.deletePost = async (req, res) => {
+    const postId = mongoose.Types.ObjectId(req.body.postId)
+    await Post.findByIdAndDelete(postId)
+    const user = await User.findById(req.userId, ['posts']).populate('posts')
+    res.send(user)
+}
 
