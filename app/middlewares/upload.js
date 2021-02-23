@@ -1,23 +1,28 @@
 const util = require('util')
 const multer = require('multer')
 const path = require('path')
-
-
-const rs = () =>
-    Math.random()
-        .toString(36)
-        .slice(-3)
+const db = require('../models')
+const Image = db.image
+const User = db.user
 
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/uploads')
-        const dir = '/' + rs() + '/' + rs()
-        console.log('dir: ' + dir)
-        req.dir = dir
     },
-    filename: (req, file, cb) => {
+    filename: async (req, file, cb) => {
         const filename = Date.now() + '-' + file.originalname
-        console.log(filename)
+        const avatar = new Image({
+            path: 'public/uploads/' + filename,
+            name: filename,
+            authorId: req.userId
+        })
+        await avatar.save()
+        const user = await User.findByIdAndUpdate(
+            req.userId,
+            { $push: { avatar: avatar._id } },
+            { new: true, useFindAndModify: false }
+        )
+
         cb(null, filename)
     }
 })

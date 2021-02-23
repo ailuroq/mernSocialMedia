@@ -5,7 +5,8 @@ const User = db.user
 
 exports.createPost = async (req, res) => {
     const post = new Post({
-        text: req.body.text
+        text: req.body.text,
+        authorId: req.userId
     })
     await post.save((err, post) => {
         if (err) {

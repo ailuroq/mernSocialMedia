@@ -7,7 +7,7 @@ exports.userProfile = async (req, res) => {
     try {
         const user = await User.findOne({
             username: req.params.username
-        }).populate('posts')
+        }).populate('posts').populate('avatar')
         res.json(user)
     } catch (e) {
         res.status(500).json({ message: 'Something gone wrong, try again' })

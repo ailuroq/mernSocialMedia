@@ -12,7 +12,7 @@ module.exports = (app) => {
 
     app.get('/api/:username', controller.userProfile)
 
-    app.post('/upload', uploadController.upload)
+    app.post('/upload', [authJwt.verifyToken], uploadController.upload)
     app.get('/files', uploadController.getListFiles)
     app.get('/files/:name', uploadController.download)
 }
